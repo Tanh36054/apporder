@@ -1,5 +1,8 @@
 import 'package:apporder/pages/bottomnav.dart';
 import 'package:apporder/pages/home.dart';
+import 'package:apporder/pages/login.dart';
+import 'package:apporder/pages/onboard.dart';
+import 'package:apporder/pages/signup.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: BottomNav(),
+      home: Onboard(),
       debugShowCheckedModeBanner: false,
     );
   }
