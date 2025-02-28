@@ -1,4 +1,6 @@
+import 'package:apporder/admin/add_food.dart';
 import 'package:apporder/admin/admin_login.dart';
+import 'package:apporder/admin/home_admin.dart';
 import 'package:apporder/pages/bottomnav.dart';
 import 'package:apporder/pages/home.dart';
 import 'package:apporder/pages/login.dart';
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: AdminLogin(),
+      home: BottomNav(),
       debugShowCheckedModeBanner: false,
     );
   }
