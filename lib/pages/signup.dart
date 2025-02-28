@@ -1,4 +1,7 @@
+import 'package:apporder/pages/bottomnav.dart';
 import 'package:apporder/pages/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/widget_support.dart';
@@ -21,33 +24,50 @@ class _SignUpState extends State<SignUp> {
 
   final _formkey = GlobalKey<FormState>();
 
-  // registration() async {
-  //   if (password != null) {
-  //     try {
-  //       UserCredential userCredential = await FirebaseAuth.instance
-  //           .createUserWithEmailAndPassword(email: email, password: password);
-  //
-  //       ScaffoldMessenger.of(context).showSnackBar((SnackBar(
-  //           backgroundColor: Colors.redAccent,
-  //           content: Text("Registered Successfully",
-  //               style: TextStyle(fontSize: 20)))));
-  //       Navigator.pushReplacement(
-  //           context, MaterialPageRoute(builder: (context) => BottomNav()));
-  //     } on FirebaseException catch (e) {
-  //       if (e.code == 'weak-password') {
-  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //             backgroundColor: Colors.orangeAccent,
-  //             content: Text("Password Provided is too Weak",
-  //                 style: TextStyle(fontSize: 18))));
-  //       } else if (e.code == "email-already-in-use") {
-  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //             backgroundColor: Colors.orangeAccent,
-  //             content: Text("Account Already exsists",
-  //                 style: TextStyle(fontSize: 18))));
-  //       }
-  //     }
-  //   }
-  // }
+  registration() async {
+    if (password != null) {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          (SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(
+              "Registered Successfully",
+              style: TextStyle(fontSize: 20),
+            ),
+          )),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => BottomNav()),
+        );
+      } on FirebaseException catch (e) {
+        if (e.code == 'weak-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.orangeAccent,
+              content: Text(
+                "Password Provided is too Weak",
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          );
+        } else if (e.code == "email-already-in-use") {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.orangeAccent,
+              content: Text(
+                "Account Already exsists",
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          );
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,24 +79,26 @@ class _SignUpState extends State<SignUp> {
               Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF1A237E),
-                          Color(0xFFe74b1a),
-                        ])),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color(0xFF1A237E), Color(0xFFe74b1a)],
+                  ),
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 3),
+                  top: MediaQuery.of(context).size.height / 3,
+                ),
                 height: MediaQuery.of(context).size.height / 2,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40),
-                        topLeft: Radius.circular(40))),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(40),
+                    topLeft: Radius.circular(40),
+                  ),
+                ),
                 child: Text(""),
               ),
               Container(
@@ -90,9 +112,7 @@ class _SignUpState extends State<SignUp> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(
-                      height: 50,
-                    ),
+                    SizedBox(height: 50),
                     Material(
                       elevation: 5,
                       borderRadius: BorderRadius.circular(20),
@@ -101,22 +121,19 @@ class _SignUpState extends State<SignUp> {
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height / 2,
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         child: Form(
                           key: _formkey,
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 30,
-                              ),
+                              SizedBox(height: 30),
                               Text(
                                 "Sign Up",
                                 style: AppWidget.HeadLineTextFeildStyle(),
                               ),
-                              SizedBox(
-                                height: 30,
-                              ),
+                              SizedBox(height: 30),
                               TextFormField(
                                 controller: namecontroller,
                                 validator: (value) {
@@ -126,14 +143,12 @@ class _SignUpState extends State<SignUp> {
                                   return null;
                                 },
                                 decoration: InputDecoration(
-                                    hintText: "Name",
-                                    hintStyle:
-                                    AppWidget.semiBoldTextFeildStyle(),
-                                    prefixIcon: Icon(Icons.person_outline)),
+                                  hintText: "Name",
+                                  hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                                  prefixIcon: Icon(Icons.person_outline),
+                                ),
                               ),
-                              SizedBox(
-                                height: 30,
-                              ),
+                              SizedBox(height: 30),
                               TextFormField(
                                 controller: mailcontroller,
                                 validator: (value) {
@@ -143,14 +158,12 @@ class _SignUpState extends State<SignUp> {
                                   return null;
                                 },
                                 decoration: InputDecoration(
-                                    hintText: "Emai",
-                                    hintStyle:
-                                    AppWidget.semiBoldTextFeildStyle(),
-                                    prefixIcon: Icon(Icons.email_outlined)),
+                                  hintText: "Emai",
+                                  hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                                  prefixIcon: Icon(Icons.email_outlined),
+                                ),
                               ),
-                              SizedBox(
-                                height: 30,
-                              ),
+                              SizedBox(height: 30),
                               TextFormField(
                                 controller: passwordcontroller,
                                 validator: (value) {
@@ -161,14 +174,12 @@ class _SignUpState extends State<SignUp> {
                                 },
                                 obscureText: true,
                                 decoration: InputDecoration(
-                                    hintText: "Password",
-                                    hintStyle:
-                                    AppWidget.semiBoldTextFeildStyle(),
-                                    prefixIcon: Icon(Icons.password_outlined)),
+                                  hintText: "Password",
+                                  hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                                  prefixIcon: Icon(Icons.password_outlined),
+                                ),
                               ),
-                              SizedBox(
-                                height: 80,
-                              ),
+                              SizedBox(height: 80),
                               GestureDetector(
                                 onTap: () async {
                                   if (_formkey.currentState!.validate()) {
@@ -178,7 +189,7 @@ class _SignUpState extends State<SignUp> {
                                       password = passwordcontroller.text;
                                     });
                                   }
-                                 // registration();
+                                  registration();
                                 },
                                 child: Material(
                                   elevation: 5,
@@ -187,43 +198,44 @@ class _SignUpState extends State<SignUp> {
                                     padding: EdgeInsets.symmetric(vertical: 8),
                                     width: 200,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFF4527A0),
-                                        borderRadius:
-                                        BorderRadius.circular(20)),
+                                      color: Color(0xFF4527A0),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
                                     child: Center(
                                       child: Text(
                                         "SIGN UP",
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'Poppins'),
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Poppins',
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 70,
-                    ),
+                    SizedBox(height: 70),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => LogIn()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LogIn()),
+                        );
                       },
                       child: Text(
                         "Already have an account? Login",
                         style: AppWidget.semiBoldTextFeildStyle(),
                       ),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

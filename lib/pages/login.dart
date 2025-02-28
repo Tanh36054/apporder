@@ -1,5 +1,7 @@
+import 'package:apporder/pages/bottomnav.dart';
 import 'package:apporder/pages/forgotpassword.dart';
 import 'package:apporder/pages/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/widget_support.dart';
@@ -19,6 +21,39 @@ class _LogInState extends State<LogIn> {
   TextEditingController useremailcontroller = new TextEditingController();
   TextEditingController userpasswordcontroller = new TextEditingController();
 
+  userLogin() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => BottomNav()),
+      );
+    } on FirebaseException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "No user Found for that Email",
+              style: TextStyle(fontSize: 18, color: Colors.black),
+            ),
+          ),
+        );
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Wrong Password Provided by User",
+              style: TextStyle(fontSize: 18, color: Colors.black),
+            ),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,24 +64,26 @@ class _LogInState extends State<LogIn> {
               Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF1A237E),
-                          Color(0xFFe74b1a),
-                        ])),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color(0xFF1A237E), Color(0xFFe74b1a)],
+                  ),
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 3),
+                  top: MediaQuery.of(context).size.height / 3,
+                ),
                 height: MediaQuery.of(context).size.height / 2,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40),
-                        topLeft: Radius.circular(40))),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(40),
+                    topLeft: Radius.circular(40),
+                  ),
+                ),
                 child: Text(""),
               ),
               Container(
@@ -60,9 +97,7 @@ class _LogInState extends State<LogIn> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(
-                      height: 50,
-                    ),
+                    SizedBox(height: 50),
                     Material(
                       elevation: 5,
                       borderRadius: BorderRadius.circular(20),
@@ -71,22 +106,19 @@ class _LogInState extends State<LogIn> {
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height / 2,
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         child: Form(
                           key: _formkey,
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 30,
-                              ),
+                              SizedBox(height: 30),
                               Text(
                                 "Login",
                                 style: AppWidget.HeadLineTextFeildStyle(),
                               ),
-                              SizedBox(
-                                height: 30,
-                              ),
+                              SizedBox(height: 30),
                               TextFormField(
                                 controller: useremailcontroller,
                                 validator: (value) {
@@ -96,14 +128,12 @@ class _LogInState extends State<LogIn> {
                                   return null;
                                 },
                                 decoration: InputDecoration(
-                                    hintText: "Emai",
-                                    hintStyle:
-                                    AppWidget.semiBoldTextFeildStyle(),
-                                    prefixIcon: Icon(Icons.email_outlined)),
+                                  hintText: "Emai",
+                                  hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                                  prefixIcon: Icon(Icons.email_outlined),
+                                ),
                               ),
-                              SizedBox(
-                                height: 30,
-                              ),
+                              SizedBox(height: 30),
                               TextFormField(
                                 controller: userpasswordcontroller,
                                 validator: (value) {
@@ -114,32 +144,30 @@ class _LogInState extends State<LogIn> {
                                 },
                                 obscureText: true,
                                 decoration: InputDecoration(
-                                    hintText: "Password",
-                                    hintStyle:
-                                    AppWidget.semiBoldTextFeildStyle(),
-                                    prefixIcon: Icon(Icons.password_outlined)),
+                                  hintText: "Password",
+                                  hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                                  prefixIcon: Icon(Icons.password_outlined),
+                                ),
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
+                              SizedBox(height: 20),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Forgotpassword()));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Forgotpassword(),
+                                    ),
+                                  );
                                 },
                                 child: Container(
-                                    alignment: Alignment.topRight,
-                                    child: Text(
-                                      "Forgot Password?",
-                                      style: AppWidget.semiBoldTextFeildStyle(),
-                                    )),
+                                  alignment: Alignment.topRight,
+                                  child: Text(
+                                    "Forgot Password?",
+                                    style: AppWidget.semiBoldTextFeildStyle(),
+                                  ),
+                                ),
                               ),
-                              SizedBox(
-                                height: 80,
-                              ),
+                              SizedBox(height: 80),
                               GestureDetector(
                                 onTap: () {
                                   if (_formkey.currentState!.validate()) {
@@ -148,7 +176,7 @@ class _LogInState extends State<LogIn> {
                                       password = userpasswordcontroller.text;
                                     });
                                   }
-                                  // userLogin();
+                                  userLogin();
                                 },
                                 child: Material(
                                   elevation: 5,
@@ -157,43 +185,44 @@ class _LogInState extends State<LogIn> {
                                     padding: EdgeInsets.symmetric(vertical: 8),
                                     width: 200,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFF4527A0),
-                                        borderRadius:
-                                        BorderRadius.circular(20)),
+                                      color: Color(0xFF4527A0),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
                                     child: Center(
                                       child: Text(
                                         "LOGIN",
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'Poppins'),
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Poppins',
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 70,
-                    ),
+                    SizedBox(height: 70),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => SignUp()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUp()),
+                        );
                       },
                       child: Text(
                         "Don't have an account? Sign up",
                         style: AppWidget.semiBoldTextFeildStyle(),
                       ),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

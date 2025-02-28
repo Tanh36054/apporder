@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "793297560417",
+    "project_id": "apporder-384c7",
+    "storage_bucket": "apporder-384c7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793297560417:android:87fae7f9322b379a7f5b20",
+        "android_client_info": {
+          "package_name": "com.example.apporder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6NCuUajtg28KWLBCHbjuvbUQKhnocE10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
