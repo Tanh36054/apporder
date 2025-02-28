@@ -3,6 +3,7 @@ import 'package:apporder/pages/home.dart';
 import 'package:apporder/pages/login.dart';
 import 'package:apporder/pages/onboard.dart';
 import 'package:apporder/pages/signup.dart';
+import 'package:apporder/pages/wallet.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Onboard(),
+      home: Wallet(),
       debugShowCheckedModeBanner: false,
     );
   }
