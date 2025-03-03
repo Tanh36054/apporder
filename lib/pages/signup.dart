@@ -1,8 +1,11 @@
 import 'package:apporder/pages/bottomnav.dart';
 import 'package:apporder/pages/login.dart';
+import 'package:apporder/service/database.dart';
+import 'package:apporder/service/shared_pref.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 
 import '../widget/widget_support.dart';
 
@@ -39,6 +42,21 @@ class _SignUpState extends State<SignUp> {
             ),
           )),
         );
+        String Id = randomAlphaNumeric(10);
+        Map<String, dynamic> addUserInfo = {
+          "Name": namecontroller.text,
+          "Email": mailcontroller.text,
+          "Wallet": "0",
+          "Id": Id,
+        };
+        await DatabaseMethods().addUserDetail(addUserInfo, Id);
+        await SharedPreferenceHelper().saveUserName(namecontroller.text);
+        await SharedPreferenceHelper().saveUsereEmail(mailcontroller.text);
+        await SharedPreferenceHelper().saveUserWallet('0');
+        bool success = await SharedPreferenceHelper().saveUserWallet("0");
+        print('DEBUG: Saved default wallet = 0, Success = $success');
+        await SharedPreferenceHelper().saveUserId(Id);
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => BottomNav()),

@@ -8,11 +8,14 @@ import 'package:apporder/pages/onboard.dart';
 import 'package:apporder/pages/profile.dart';
 import 'package:apporder/pages/signup.dart';
 import 'package:apporder/pages/wallet.dart';
+import 'package:apporder/widget/app_constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = publishableekey;
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -43,7 +46,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: SignUp(),
+      home: Onboard(),
       debugShowCheckedModeBanner: false,
     );
   }

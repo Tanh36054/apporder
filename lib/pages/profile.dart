@@ -41,7 +41,7 @@ class _ProfileState extends State<Profile> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(60),
                         child: Image.asset(
-                          "images/ronaldo.jpg",
+                          "images/sati.jpg",
                           height: 120,
                           width: 120,
                           fit: BoxFit.cover,
@@ -56,7 +56,7 @@ class _ProfileState extends State<Profile> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Anh Bay",
+                        "Sa Tị",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 23,
@@ -97,7 +97,7 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           Text(
-                            "Anh Bay",
+                            "Sa Tị",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
